@@ -75,3 +75,8 @@ _sentencepiece.*.so
 third_party/abseil-cpp
 
 python/sentencepiece
+
+build_ios
+build_macos
+build_iphonesimulator
+libsentencepiece.xcframework
