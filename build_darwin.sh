@@ -27,6 +27,16 @@ cmake --build . --config Release
 cmake --install . --prefix "$(realpath install)"
 cd ..
 
+# Replace links by their actual file
+# This is necessary because SOVERSION is "0" in the CMakeLists so the file MUST be named libsentencepiece.0.dylib otherwise dyld won't find it at runtime
+rm build_ios/install/lib/libsentencepiece.0.dylib
+rm build_macos/install/lib/libsentencepiece.0.dylib
+rm build_iphonesimulator/install/lib/libsentencepiece.0.dylib
+
+cp build_ios/install/lib/libsentencepiece.0.0.0.dylib build_ios/install/lib/libsentencepiece.0.dylib
+cp build_macos/install/lib/libsentencepiece.0.0.0.dylib build_macos/install/lib/libsentencepiece.0.dylib
+cp build_iphonesimulator/install/lib/libsentencepiece.0.0.0.dylib build_iphonesimulator/install/lib/libsentencepiece.0.dylib
+
 # Create xcframework
 rm -rf libsentencepiece.xcframework
-xcodebuild -create-xcframework -library build_ios/install/lib/libsentencepiece.0.0.0.dylib -headers build_ios/install/include -library build_macos/install/lib/libsentencepiece.0.0.0.dylib -headers build_macos/install/include -library build_iphonesimulator/install/lib/libsentencepiece.0.0.0.dylib -headers build_iphonesimulator/install/include -output libsentencepiece.xcframework
+xcodebuild -create-xcframework -library build_ios/install/lib/libsentencepiece.0.dylib -headers build_ios/install/include -library build_macos/install/lib/libsentencepiece.0.dylib -headers build_macos/install/include -library build_iphonesimulator/install/lib/libsentencepiece.0.dylib -headers build_iphonesimulator/install/include -output libsentencepiece.xcframework
