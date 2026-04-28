@@ -79,4 +79,6 @@ python/sentencepiece
 build_ios
 build_macos
 build_iphonesimulator
-libsentencepiece.xcframework
+*.xcframework
+*.framework
+*.zip
